@@ -1,0 +1,31 @@
+[ {
+  "id" : 1,
+  "title" : "fsdafdsf",
+  "image" : "https://cdn-icons-png.flaticon.com/512/7867/7867852.png",
+  "status" : "completed",
+  "type" : "group",
+  "groupSize" : 4,
+  "startDate" : null,
+  "endDate" : null,
+  "description" : "safasgfsdgdfjhdrffdsayhdvsajhdbhkjsaBDJKAsbvdujyhiasbdfujikasbfiuasbdfuisabfd\r\nfdbgvuiyhasfguiashfiuoashbf\r\nffhgwsaiuyfgiuasgfiuashgfa",
+  "demoUrl" : "fsadfasfa",
+  "repoUrl" : "fsafdsa",
+  "technologies" : "java, python, js",
+  "staticEntry" : null,
+  "highlighted" : false
+}, {
+  "id" : 2,
+  "title" : "gdsfsadfasfasfas",
+  "image" : "fasfasfasfasf",
+  "status" : "completed",
+  "type" : "solo",
+  "groupSize" : null,
+  "startDate" : null,
+  "endDate" : null,
+  "description" : "fasfasfasfasfasf",
+  "demoUrl" : "",
+  "repoUrl" : "",
+  "technologies" : "python",
+  "staticEntry" : null,
+  "highlighted" : true
+} ]
