@@ -40,14 +40,12 @@ public class ProjectRepository {
     public Optional<Project> findById(Long id) {
         return findAll().stream().filter(p -> p.getId().equals(id)).findFirst();
     }
-
     public List<Project> findAllOrdered() {
         List<Project> list = findAll();
         list.sort(Comparator
-                .comparing(Project::isHighlighted).reversed()
-                .thenComparing(Project::getStartDate, Comparator.nullsLast(Comparator.naturalOrder()))
-                .thenComparing(Project::getId, Comparator.nullsLast(Comparator.naturalOrder()))
-                .reversed()
+                .comparing(Project::isHighlighted, Comparator.reverseOrder()) // true first
+                .thenComparing(Project::getStartDate, Comparator.nullsLast(Comparator.reverseOrder())) // newest date first
+                .thenComparing(Project::getId, Comparator.reverseOrder()) // newest id fallback
         );
         return list;
     }
