@@ -341,3 +341,23 @@ body{margin:0; font-family:Arial, sans-serif; color:var(--text); background:#020
         grid-template-columns: 1fr;
     }
 }
+/* Stack About Me content on small screens */
+@media (max-width: 768px) {
+    .about-me {
+        grid-template-columns: 1fr;   /* single column */
+        text-align: center;           /* center align text for better look */
+    }
+
+    .about-me .profile-pic {
+        margin: 0 auto;               /* center image */
+    }
+
+    .about-me .bio {
+        font-size: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .about-me .social-links {
+        justify-content: center;
+    }
+}
