@@ -325,3 +325,19 @@ body{margin:0; font-family:Arial, sans-serif; color:var(--text); background:#020
 .removeUnderline {
     text-decoration: none;
 }
+
+@media (max-width: 1200px) {
+    .grid.container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 900px) {
+    .grid.container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .grid.container {
+        grid-template-columns: 1fr;
+    }
+}
