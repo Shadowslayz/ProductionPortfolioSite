@@ -92,11 +92,21 @@ public class PortfolioController {
     }
 
     @PostMapping("/projects/{id}/delete")
-    public String delete(@PathVariable Long id, HttpSession session) {
+    public String delete(@PathVariable Long id, HttpSession session) throws IOException {
         if (!Boolean.TRUE.equals(session.getAttribute("ADMIN"))) return "redirect:/";
+
+        // 1. Delete project from DB
         service.delete(id);
+
+        // 2. Delete its static uploads folder if exists
+        Path base = Paths.get("/opt/portfolio/uploads/projects", String.valueOf(id)).normalize();
+        if (Files.exists(base)) {
+            FileSystemUtils.deleteRecursively(base);
+        }
+
         return "redirect:/";
     }
+
 
     @PostMapping("/projects/{id}/toggle")
     public String toggle(@PathVariable Long id, HttpSession session) {
@@ -137,9 +147,20 @@ public class PortfolioController {
     }
 
     @PostMapping("/projects/{id}/edit")
-    public String update(@PathVariable Long id, @ModelAttribute Project form, HttpSession session) {
+    public String update(@PathVariable Long id,
+                         @ModelAttribute Project form,
+                         @RequestParam(value="staticFile", required=false) MultipartFile staticFile,
+                         HttpSession session) throws IOException {
         if (!Boolean.TRUE.equals(session.getAttribute("ADMIN"))) return "redirect:/";
-        service.update(id, form);
+
+        Project updated = service.update(id, form);
+
+        if (staticFile != null && !staticFile.isEmpty()) {
+            saveSingleHtmlForProject(id, staticFile);
+            updated.setStaticEntry("/static-uploads/projects/" + id + "/index.html");
+            service.save(updated);
+        }
+
         return "redirect:/";
     }
 
@@ -210,18 +231,19 @@ public class PortfolioController {
 
     // ---- Helper used by both endpoints ----
     private void saveSingleHtmlForProject(Long id, MultipartFile file) throws IOException {
-        // only allow .html/.htm
         String name = (file.getOriginalFilename() != null) ? file.getOriginalFilename().toLowerCase() : "index.html";
         if (!(name.endsWith(".html") || name.endsWith(".htm"))) {
             throw new IOException("Only .html/.htm files are allowed");
         }
 
-        Path base = Paths.get("uploads", "projects", String.valueOf(id)).toAbsolutePath().normalize();
+        // Save to /opt/portfolio/uploads/projects/{id}
+        Path base = Paths.get("/opt/portfolio/uploads/projects", String.valueOf(id)).normalize();
         if (Files.exists(base)) FileSystemUtils.deleteRecursively(base);
         Files.createDirectories(base);
 
         Path out = base.resolve("index.html");
         Files.copy(file.getInputStream(), out, StandardCopyOption.REPLACE_EXISTING);
     }
+
 
 }

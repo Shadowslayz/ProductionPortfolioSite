@@ -42,13 +42,18 @@ public class ProjectRepository {
     }
     public List<Project> findAllOrdered() {
         List<Project> list = findAll();
-        list.sort(Comparator
-                .comparing(Project::isHighlighted, Comparator.reverseOrder()) // true first
-                .thenComparing(Project::getStartDate, Comparator.nullsLast(Comparator.reverseOrder())) // newest date first
-                .thenComparing(Project::getId, Comparator.reverseOrder()) // newest id fallback
+        list.sort(
+                Comparator
+                        // highlighted true comes before false
+                        .comparing(Project::isHighlighted, Comparator.reverseOrder())
+                        // within highlighted group, newest date first
+                        .thenComparing(Project::getStartDate, Comparator.nullsLast(Comparator.reverseOrder()))
+                        // fallback: newest id first
+                        .thenComparing(Project::getId, Comparator.reverseOrder())
         );
         return list;
     }
+
 
     public void save(Project p) {
         List<Project> list = findAll();

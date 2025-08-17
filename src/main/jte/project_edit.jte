@@ -23,7 +23,7 @@ content = @`
             <h3>${project.getTitle() != null ? project.getTitle() : "Project"}</h3>
 
             <!-- Edit form -->
-            <form class="form-grid" action="/projects/${project.getId()}/edit" method="post">
+            <form class="form-grid" action="/projects/${project.getId()}/edit" method="post" enctype="multipart/form-data">
                 <div>
                     <label>Title</label>
                     <input name="title" value="${project.getTitle()}" required>
@@ -112,33 +112,10 @@ content = @`
                         <input name="repoUrl" value="${project.getRepoUrl() != null ? project.getRepoUrl() : ""}">
                     </div>
                 </div>
-                <!-- Upload static HTML for THIS project -->
-                <div class="panel" style="margin-top:1rem;">
-                    <h3>Upload Static HTML</h3>
-                    <div class="form-grid" style="align-items:center;">
-                        <div style="grid-column:1/-1;">
-                            <div class="dropzone"
-                                 data-upload="/projects/${project.getId()}/upload-html"
-                                 title="Drop a .html or .htm file">
-                                <div class="dz-body">
-                                    <strong>Drop HTML</strong>
-                                    <span class="dz-help">or click to choose…</span>
-                                </div>
-                                <input class="dz-file" type="file" accept=".html,.htm" hidden>
-                            </div>
-                        </div>
-
-                        @if(project.getStaticEntry() != null && !project.getStaticEntry().isBlank())
-                            <div style="grid-column:1/-1;">
-                                <label>Current static entry</label>
-                                <p>
-                                    <a class="btn" href="${project.getStaticEntry()}" target="_blank" rel="noopener">
-                                        Open Uploaded Page
-                                    </a>
-                                </p>
-                            </div>
-                        @endif
-                    </div>
+                <!-- Static HTML Upload -->
+                <div style="grid-column:1/-1;">
+                    <label>Upload Static HTML</label>
+                    <input type="file" name="staticFile" accept=".html,.htm">
                 </div>
                 <div class="actions">
                     <button class="btn btn-accent" type="submit">Save</button>
