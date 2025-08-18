@@ -6,6 +6,7 @@ import jianmejia.portfoliosite.model.Project;
 import jianmejia.portfoliosite.service.ExperienceService;
 import jianmejia.portfoliosite.service.ProjectService;
 import jianmejia.portfoliosite.service.SiteInfoService;
+import jianmejia.portfoliosite.password.PasswordStorage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileSystemUtils;
@@ -71,7 +72,7 @@ public class PortfolioController {
     public String login(@RequestParam String username,
                         @RequestParam String password,
                         HttpSession session) {
-        if ("".equals(username) && "".equals(password)) {
+        if (PasswordStorage.getUsername().equals(username) && PasswordStorage.getPassword().equals(password)) {
             session.setAttribute("ADMIN", true);
         }
         return "redirect:/";
