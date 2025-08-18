@@ -61,6 +61,15 @@ content = @`
                         @endif
                     </select>
                 </div>
+                <label style="display:flex;gap:.5rem;align-items:center;">
+                    @if(project.isProfessional())
+                        <input type="checkbox" name="professional" checked="checked">
+                    @else
+                        <input type="checkbox" name="professional">
+                    @endif
+
+                    Professional (client/paid project)
+                </label>
 
                 <div id="groupSizeWrap">
                     <label>Group Size (if Group)</label>

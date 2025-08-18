@@ -61,6 +61,7 @@ public class ProjectService {
             p.setRepoUrl(form.getRepoUrl());
             p.setTechnologies(form.getTechnologies());
             p.setHighlighted(form.isHighlighted());
+            p.setProfessional(form.isProfessional());
             repo.save(p);
             return p;
         }).orElseThrow();

@@ -76,6 +76,13 @@ content = @`
                         </select>
                     </div>
                     <div>
+                        <label style="display:flex;gap:.5rem;align-items:center;">
+                            <input type="checkbox" name="professional">
+                            Professional (client/paid project)
+                        </label>
+
+                    </div>
+                    <div>
                         <label>Type</label>
                         <select name="type" id="typeSelect">
                             <option value="solo">Solo</option>
@@ -277,6 +284,9 @@ content = @`
 
                     <div class="tags">
                         <span class="tag ${p.getStatus()}">${"completed".equals(p.getStatus()) ? "Completed" : "In Progress"}</span>
+                        @if(p.isProfessional())
+                            <span class="tag professional">Professional</span>
+                        @endif
                         <span class="tag ${p.getType()}">${"group".equals(p.getType()) ? "Group" : "Solo"}</span>
                         @if("group".equals(p.getType()))
                             <span class="tag group-size">${p.getGroupSize() != null ? p.getGroupSize() : 1} Members</span>

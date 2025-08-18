@@ -65,7 +65,8 @@ body{margin:0; font-family:Arial, sans-serif; color:var(--text); background:#020
 .in-progress{background:var(--warn); color:#000; border-color:#b99000;}
 .solo{background:var(--blue); border-color:#0a5ab6;}
 .group{background:var(--accent); border-color:#5a2ea9;}
-.group-size{background:#9b59b6; border-color:#7a3f95;}
+.professional{background: #5fffaf; border-color: #1cff87;}
+.group-size{background: #361379; border-color: #5100d3;}
 .meta{color:#ddd; font-size:.85rem; display:flex; flex-wrap:wrap; gap:.6rem;}
 .sep{color:#666;}
 .description{color:#ccc; font-size:.9rem;}

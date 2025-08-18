@@ -15,6 +15,15 @@ public class Project {
     private String status;         // "completed" | "in-progress"
     private String type;           // "solo" | "group"
     private Integer groupSize;     // nullable unless group
+    private boolean professional;
+
+    public boolean isProfessional() {
+        return professional;
+    }
+
+    public void setProfessional(boolean professional) {
+        this.professional = professional;
+    }
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
