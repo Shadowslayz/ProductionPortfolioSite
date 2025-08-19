@@ -68,4 +68,11 @@
     // Defensive: close on resize/orientation changes
     window.addEventListener('resize', closeMenu);
     window.addEventListener('orientationchange', closeMenu);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("toggleTechSummary").addEventListener("click", () => {
+            document.querySelector(".tech-stats-container").classList.toggle("open");
+        });
+    });
+
 })();

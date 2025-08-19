@@ -12,14 +12,18 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import java.util.LinkedHashMap;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 public class PortfolioController {
@@ -39,7 +43,6 @@ public class PortfolioController {
         var projects = service.findAllOrdered();
         var info = siteInfo.get();
         boolean isAdmin = Boolean.TRUE.equals(session.getAttribute("ADMIN"));
-
         var experiencesRecent = experiences.listOrdered().stream().limit(5).toList();
 
         long total = projects.size();
@@ -47,6 +50,23 @@ public class PortfolioController {
         long inProgress = projects.stream().filter(p -> "in-progress".equals(p.getStatus())).count();
         long solo = projects.stream().filter(p -> "solo".equals(p.getType())).count();
         long group = projects.stream().filter(p -> "group".equals(p.getType())).count();
+
+        // Tech aggregation
+        Map<String, Long> techCounts = projects.stream()
+                .flatMap(p -> (p.getTechnologies() == null ? Stream.empty() :
+                        Arrays.stream(p.getTechnologies().split(","))))
+                .map(String::trim)
+                .filter(s -> !s.isBlank())
+                .collect(Collectors.groupingBy(t -> t, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new // preserve sorted order
+                ));
 
         model.addAttribute("projects", projects);
         model.addAttribute("isAdmin", isAdmin);
@@ -57,6 +77,7 @@ public class PortfolioController {
         model.addAttribute("group", group);
         model.addAttribute("siteInfo", info);
         model.addAttribute("experiencesRecent", experiencesRecent);
+        model.addAttribute("techCounts", techCounts);
         return "portfolio";
     }
 

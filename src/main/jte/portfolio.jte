@@ -7,6 +7,7 @@
 @param long inProgress
 @param long solo
 @param long group
+@param java.util.Map<String, Long> techCounts
 @param java.util.List<jianmejia.portfoliosite.model.Experience> experiencesRecent
 @template.base(
 title = "Jian Mejia's Portfolio",
@@ -20,6 +21,7 @@ content = @`
         <!-- Login dropdown (same page) -->
         <nav class="header-actions">
             <a class="login-btn removeUnderline" href="/about">About Me</a>
+            <button class="login-btn" id="toggleTechSummary">📊 Tech Stats</button>
             <a class="login-btn removeUnderline" href="/timeline">Experience Timeline</a>
             @if(siteInfo != null && siteInfo.getDownloadUrl() != null && !siteInfo.getDownloadUrl().isBlank())
                 <a class="login-btn removeUnderline" href="${siteInfo.getDownloadUrl()}" target="_blank">Download Portfolio</a>
@@ -356,5 +358,19 @@ content = @`
             </div>
         @endfor
     </div>
+    <div class="tech-stats-container">
+        <h3>Technology Stats</h3>
+        <div class="bar-graph">
+            @for(var entry : techCounts.entrySet())
+                <div class="bar">
+                    <span class="label">${entry.getKey()}</span>
+                    <div class="bar-fill" style="width:${entry.getValue() * 15}px">
+                        ${entry.getValue()}
+                    </div>
+                </div>
+            @endfor
+        </div>
+    </div>
+
 `
 )

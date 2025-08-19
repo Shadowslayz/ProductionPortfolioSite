@@ -30,6 +30,62 @@ body{margin:0; font-family:Arial, sans-serif; color:var(--text); background:#020
 .login-form .aux a{font-size:.8rem; color:#007bff; text-decoration:none;}
 .login-form .aux a:hover{text-decoration:underline;}
 .logout-form{margin:0}
+/* Mobile header adjustments */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;        /* stack vertically */
+        align-items: center;           /* center everything */
+        padding: 1rem;                 /* balanced spacing */
+        text-align: center;            /* center title + subtitle */
+    }
+
+    .header h1 {
+        font-size: 1.6rem;             /* smaller title */
+        margin-bottom: 0.25rem;
+    }
+
+    .header p {
+        font-size: 0.9rem;             /* smaller subtitle */
+        margin-bottom: 1rem;
+    }
+
+    /* Navigation buttons container */
+    .header .nav-buttons {
+        display: flex;
+        flex-direction: column;        /* stack buttons */
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;                   /* full width block */
+    }
+
+    /* Individual buttons */
+    .header .btn {
+        width: 90%;                    /* wide but not edge-to-edge */
+        max-width: 320px;              /* cap size for readability */
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        text-align: center;
+
+        /* consistent styling */
+        background: linear-gradient(90deg, #6a11cb, #2575fc);
+        color: white;
+        font-weight: 500;
+        box-shadow: 0px 4px 8px rgba(0,0,0,0.25);
+        transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .header .btn:hover {
+        transform: scale(1.05);
+        background: linear-gradient(90deg, #7b2cbf, #9d4edd);
+    }
+
+    /* Hide login on mobile */
+    .login-dropdown{
+        display: none !important;
+    }
+}
+
 
 .container{padding:1.25rem 2rem 2rem;}
 .stats{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:1rem; margin:1rem 0 1.5rem;}
@@ -64,9 +120,9 @@ body{margin:0; font-family:Arial, sans-serif; color:var(--text); background:#020
 .completed{background:var(--ok); border-color:#1f7a34;}
 .in-progress{background:var(--warn); color:#000; border-color:#b99000;}
 .solo{background:var(--blue); border-color:#0a5ab6;}
-.group{background:var(--accent); border-color:#5a2ea9;}
+.group-size{background:#ff5286ff; border-color: #ff7ba4;}
 .professional{background: #361379; border-color: #5100d3;}
-.group-size{background: #8d52ff; border-color: #8d40ff;}
+.group{background: #ff1a5f; border-color: #ff3370;}
 .meta{color:#ddd; font-size:.85rem; display:flex; flex-wrap:wrap; gap:.6rem;}
 .sep{color:#666;}
 .description{color:#ccc; font-size:.9rem;}
@@ -360,5 +416,92 @@ body{margin:0; font-family:Arial, sans-serif; color:var(--text); background:#020
 
     .about-me .social-links {
         justify-content: center;
+    }
+}
+
+
+/*bar for summarizing tech stack*/
+.tech-stats-container {
+    padding-top: 5rem; /* adjust value to your liking */
+    padding-left: 2rem; /* adjust value to your liking */
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 300px;
+    background: #00046e;
+    background: radial-gradient(circle, rgba(0, 4, 110, 1) 0%, rgba(41, 4, 179, 1) 48%, rgba(47, 17, 82, 1) 100%);
+}
+
+.tech-stats-container.open {
+    transform: translateX(0);
+}
+
+
+.bar-graph {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.label {
+    width: 120px;
+    font-weight: bold;
+    color: #e0e0ff; /* soft violet text */
+}
+
+.bar-fill {
+    height: 22px;
+    line-height: 22px;
+    text-align: right;
+    padding-right: 6px;
+    border-radius: 6px;
+
+    /* Violet scheme */
+    background: linear-gradient(90deg, #7b2cbf, #9d4edd);
+    color: white;
+    font-weight: bold;
+    transition: width 0.4s ease;
+}
+/* Mobile version adjustments */
+@media (max-width: 768px) {
+    .tech-stats-container {
+        width: 100%; /* full width on mobile */
+        padding-left: 1rem;
+        padding-top: 11rem;
+        transform: translateX(-100%); /* still slide in/out */
+    }
+
+    .tech-stats-container.open {
+        transform: translateX(0);
+    }
+
+    .bar-graph {
+        gap: 10px; /* tighter spacing for small screens */
+    }
+
+    .bar {
+        flex-direction: column; /* stack label and bar vertically */
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .label {
+        width: auto; /* let it shrink naturally */
+        font-size: 0.9rem;
+    }
+
+    .bar-fill {
+        text-align: center;      /* center the number inside */
+        padding-right: 0;
+        font-size: 0.9rem;
     }
 }
