@@ -119,6 +119,8 @@ body{margin:0; font-family:Arial, sans-serif; color:var(--text); background:#020
 .tag{font-size:.75rem; padding:.25rem .5rem; border-radius:999px; color:#fff; border:1px solid #333;}
 .completed{background:var(--ok); border-color:#1f7a34;}
 .in-progress{background:var(--warn); color:#000; border-color:#b99000;}
+.on-hold {background-color: rgba(255, 107, 0, 0.83); color: #000;}
+.dropped {background-color: #f44336;color: #fff;}
 .solo{background:var(--blue); border-color:#0a5ab6;}
 .group-size{background:#ff5286ff; border-color: #ff7ba4;}
 .professional{background: #361379; border-color: #5100d3;}
@@ -424,6 +426,9 @@ body{margin:0; font-family:Arial, sans-serif; color:var(--text); background:#020
 .tech-stats-container {
     padding-top: 5rem; /* adjust value to your liking */
     padding-left: 2rem; /* adjust value to your liking */
+    max-height: 100vh;
+    overflow-y: auto;     /* enable vertical scroll */
+    padding-right: 0.5rem; /* add breathing room for scrollbar */
     transform: translateX(-100%);
     transition: transform 0.5s ease;
     position: fixed;
@@ -503,5 +508,48 @@ body{margin:0; font-family:Arial, sans-serif; color:var(--text); background:#020
         text-align: center;      /* center the number inside */
         padding-right: 0;
         font-size: 0.9rem;
+    }
+}
+/* Row layout */
+.tl-content-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;        /* space between text and image */
+    margin-top: 1rem;
+}
+
+/* Text column */
+.tl-text {
+    flex: 2;            /* take more space */
+}
+
+/* Image column */
+.tl-image {
+    flex: 1;            /* smaller portion */
+    max-width: 300px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.tl-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    border-radius: 6px;
+}
+
+/* Fade-in from left */
+.fade-in-right {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: fadeInRight 0.6s ease forwards;
+}
+
+@keyframes fadeInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }

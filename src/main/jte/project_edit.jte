@@ -33,7 +33,6 @@ content = @`
                     <label>Image URL</label>
                     <input name="image" value="${project.getImage() != null ? project.getImage() : ""}">
                 </div>
-
                 <div>
                     <!-- Status -->
                     <label>Status</label>
@@ -41,13 +40,26 @@ content = @`
                         @if("completed".equals(project.getStatus()))
                             <option value="completed" selected="selected">Completed</option>
                             <option value="in-progress">In Progress</option>
-                        @else
+                            <option value="on-hold">On-Hold</option>
+                            <option value="dropped">Dropped</option>
+                        @elseif("in-progress".equals(project.getStatus()))
                             <option value="completed">Completed</option>
                             <option value="in-progress" selected="selected">In Progress</option>
+                            <option value="on-hold">On-Hold</option>
+                            <option value="dropped">Dropped</option>
+                        @elseif("on-hold".equals(project.getStatus()))
+                            <option value="completed">Completed</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="on-hold" selected="selected">On-Hold</option>
+                            <option value="dropped">Dropped</option>
+                        @else
+                            <option value="completed">Completed</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="on-hold">On-Hold</option>
+                            <option value="dropped" selected="selected">Dropped</option>
                         @endif
                     </select>
                 </div>
-
                 <div>
                     <!-- Type -->
                     <label>Type</label>

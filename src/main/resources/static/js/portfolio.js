@@ -74,5 +74,29 @@
             document.querySelector(".tech-stats-container").classList.toggle("open");
         });
     });
+    document.addEventListener("DOMContentLoaded", () => {
+        // Grab all numeric values from your .bar-value elements
+        const values = Array.from(document.querySelectorAll(".bar-value"))
+            .map(el => parseInt(el.textContent.trim(), 10) || 0);
+
+        if (values.length === 0) return;
+
+        // Find the largest value
+        const max = Math.max(...values);
+
+        // Loop through bars and apply proportional width
+        document.querySelectorAll(".bar").forEach((bar, i) => {
+            const val = values[i];
+            const percent = (val / max) * 100; // normalize to max
+            bar.style.width = percent + "%";
+        });
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".tl-image").forEach(imgWrapper => {
+            setTimeout(() => {
+                imgWrapper.classList.add("show");
+            }, 200); // small delay for smooth effect
+        });
+    });
 
 })();

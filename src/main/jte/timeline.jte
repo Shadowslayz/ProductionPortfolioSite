@@ -58,19 +58,28 @@ content = @`
                                 </span>
                             </div>
 
-                            @if(exp.getSummary() != null)
-                                <p class="tl-desc">${exp.getSummary()}</p>
-                            @endif
+                            <div class="tl-content-row">
+                                <div class="tl-text">
+                                    @if(exp.getSummary() != null)
+                                        <p class="tl-desc">${exp.getSummary()}</p>
+                                    @endif
 
-                            @if(exp.getLink() != null && !exp.getLink().isBlank())
-                                <a class="btn tl-link"
-                                   href="${exp.getLink().matches("(?i)^https?://.*") ? exp.getLink() : "https://" + exp.getLink()}"
-                                   target="_blank" rel="noopener">
-                                    View
-                                </a>
-                            @endif
+                                    @if(exp.getLink() != null && !exp.getLink().isBlank())
+                                        <a class="btn tl-link"
+                                           href="${exp.getLink().matches("(?i)^https?://.*") ? exp.getLink() : "https://" + exp.getLink()}"
+                                           target="_blank" rel="noopener">
+                                            View
+                                        </a>
+                                    @endif
+                                </div>
 
-                            <div class="tl-progress"><div class="bar"></div></div>
+                                @if(exp.getPreviewImage() != null && !exp.getPreviewImage().isBlank())
+                                    <div class="tl-image fade-in-right">
+                                        <img src="${exp.getPreviewImage()}"
+                                             alt="${exp.getTitle() != null ? exp.getTitle() : "Experience"} preview">
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </article>
                 @endfor

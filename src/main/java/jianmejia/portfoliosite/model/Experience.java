@@ -16,6 +16,7 @@ public class Experience {
 
     private String summary;       // description
     private String link;          // optional
+    private String previewImage; // optional
 
     // getters/setters
     public Long getId() { return id; }
@@ -41,4 +42,8 @@ public class Experience {
 
     public String getLink() { return link; }
     public void setLink(String link) { this.link = link; }
+    public String getPreviewImage() { return previewImage; }
+    public void setPreviewImage(String previewImage) {
+        this.previewImage = previewImage;
+    }
 }

@@ -75,6 +75,8 @@ content = @`
                         <select name="status">
                             <option value="completed">Completed</option>
                             <option value="in-progress">In Progress</option>
+                            <option value="on-hold">On-Hold</option>
+                            <option value="dropped">Dropped</option>
                         </select>
                     </div>
                     <div>
@@ -208,6 +210,10 @@ content = @`
                         <textarea name="summary" rows="3" placeholder="Built X, improved Y by Z%..."></textarea>
                     </div>
                     <div style="grid-column:1/-1;">
+                        <label>Preview Image URL</label>
+                        <input name="previewImage" placeholder="https://example.com/screenshot.jpg">
+                    </div>
+                    <div style="grid-column:1/-1;">
                         <label>Link (company/project)</label>
                         <input name="link" placeholder="https://…">
                     </div>
@@ -285,7 +291,19 @@ content = @`
                     </div>
 
                     <div class="tags">
-                        <span class="tag ${p.getStatus()}">${"completed".equals(p.getStatus()) ? "Completed" : "In Progress"}</span>
+                        <span class="tag ${p.getStatus()}">
+                            @if("completed".equals(p.getStatus()))
+                                Completed
+                            @elseif("in-progress".equals(p.getStatus()))
+                                In Progress
+                            @elseif("on-hold".equals(p.getStatus()))
+                                On-Hold
+                            @elseif("dropped".equals(p.getStatus()))
+                                Dropped
+                            @else
+                                Unknown
+                            @endif
+                        </span>
                         @if(p.isProfessional())
                             <span class="tag professional">Professional</span>
                         @endif
@@ -294,6 +312,7 @@ content = @`
                             <span class="tag group-size">${p.getGroupSize() != null ? p.getGroupSize() : 1} Members</span>
                         @endif
                     </div>
+
 
                     <div class="meta">
                         <div>
@@ -364,7 +383,7 @@ content = @`
             @for(var entry : techCounts.entrySet())
                 <div class="bar">
                     <span class="label">${entry.getKey()}</span>
-                    <div class="bar-fill" style="width:${entry.getValue() * 15}px">
+                    <div class="bar-fill" data-count="${entry.getValue()}" style="width:${entry.getValue() * 15}px">
                         ${entry.getValue()}
                     </div>
                 </div>
