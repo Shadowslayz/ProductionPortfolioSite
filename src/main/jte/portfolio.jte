@@ -24,7 +24,7 @@ content = @`
             <button class="login-btn" id="toggleTechSummary">📊 Tech Stats</button>
             <a class="login-btn removeUnderline" href="/timeline">Experience Timeline</a>
             @if(siteInfo != null && siteInfo.getDownloadUrl() != null && !siteInfo.getDownloadUrl().isBlank())
-                <a class="login-btn removeUnderline" href="${siteInfo.getDownloadUrl()}" target="_blank">Download Portfolio</a>
+                <a class="login-btn removeUnderline" href="${siteInfo.getDownloadUrl()}" target="_blank">Download Resume</a>
             @endif
             <!-- Login dropdown -->
             <div class="login-dropdown" id="loginMenu">
@@ -158,8 +158,8 @@ content = @`
                     </div>
 
                     <div>
-                        <label>Portfolio Download Link (.docx)</label>
-                        <input type="url" name="downloadUrl" value="${siteInfo != null && siteInfo.getDownloadUrl() != null ? siteInfo.getDownloadUrl() : ""}" placeholder="https://example.com/MyPortfolio.docx">
+                        <label>Resume Download Link (.docx)</label>
+                        <input type="url" name="downloadUrl" value="${siteInfo != null && siteInfo.getDownloadUrl() != null ? siteInfo.getDownloadUrl() : ""}" placeholder="https://example.com/MyResume.docx">
                     </div>
 
                     <div>
