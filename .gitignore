@@ -35,4 +35,3 @@ build/
 ### JTE ###
 /jte-classes/
 /target/
-PasswordStorage.java
